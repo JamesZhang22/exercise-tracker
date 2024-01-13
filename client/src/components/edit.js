@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
- export default function Edit() {
+ export default function Edit({user}) {
  const [form, setForm] = useState({
    exercise: "",
    reps: "",
@@ -39,10 +39,11 @@ import { useParams, useNavigate } from "react-router";
   async function onSubmit(e) {
    e.preventDefault();
    const editedPerson = {
+     user: form.user,
      exercise: form.exercise,
      reps: form.reps,
      weight: form.weight,
-     user: form.user,
+     date: form.date,
    };
     // This will send a post request to update the data in the database.
    await fetch(`http://localhost:5000/update/${params.id}`, {

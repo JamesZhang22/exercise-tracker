@@ -45,7 +45,7 @@ export default function RecordList({user}) {
  }
   // This method will map out the records on the table
  function recordList() {
-   return records.map((record) => {
+   return records.filter((record) => record.user === user).map((record) => {
      return (
        <Record
          record={record}
@@ -60,7 +60,9 @@ export default function RecordList({user}) {
    <div>
     <h2>Welcome {user}!</h2>
      <h3>Exercise List</h3>
-     <button>Create</button>
+     <Link to="/create">
+      <button type="button" >Create</button>
+     </Link>
      <table className="table table-striped" style={{ marginTop: 20 }}>
        <thead>
          <tr>

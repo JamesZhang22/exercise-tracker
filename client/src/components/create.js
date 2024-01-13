@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-export default function Create() {
+export default function Create({user}) {
  const [form, setForm] = useState({
    exercise: "",
    reps: "",
@@ -19,6 +19,7 @@ export default function Create() {
    e.preventDefault();
     // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
+   newPerson.user = user;
     await fetch("http://localhost:5000/record/add", {
      method: "POST",
      headers: {
@@ -81,7 +82,7 @@ export default function Create() {
        <div className="form-group">
          <input
            type="submit"
-           value="Create person"
+           value="Finish"
            className="btn btn-primary"
          />
        </div>
