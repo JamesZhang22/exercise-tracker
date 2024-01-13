@@ -15,7 +15,7 @@ const ObjectId = require("mongodb").ObjectId;
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get(async function (req, res) {
   try {
-    const db_connect = await dbo.getDb("employees");
+    const db_connect = await dbo.getDb("users");
     const result = await db_connect.collection("records").find({}).toArray();
     res.json(result);
   } catch (err) {
@@ -40,9 +40,11 @@ recordRoutes.route("/record/add").post(async function (req, res) {
   try {
     const db_connect = await dbo.getDb();
     const myobj = {
-      name: req.body.name,
-      position: req.body.position,
-      level: req.body.level,
+      user: req.body.user,
+      exercise: req.body.exercise,
+      reps: req.body.reps,
+      weight: req.body.weight,
+      date: req.body.date
     };
     const result = await db_connect.collection("records").insertOne(myobj);
     res.json(result);
@@ -58,9 +60,11 @@ recordRoutes.route("/update/:id").post(async function (req, res) {
     const myquery = { _id: new ObjectId(req.params.id) };
     const newvalues = {
       $set: {
-        name: req.body.name,
-        position: req.body.position,
-        level: req.body.level,
+        user: req.body.user,
+        exercise: req.body.exercise,
+        reps: req.body.reps,
+        weight: req.body.weight,
+        date: req.body.date
       },
     };
     const result = await db_connect.collection("records").updateOne(myquery, newvalues);
