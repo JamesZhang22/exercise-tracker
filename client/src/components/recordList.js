@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const Record = (props) => (
  <tr>
-   <td>{props.record.name}</td>
-   <td>{props.record.position}</td>
-   <td>{props.record.level}</td>
+   <td>{props.record.exercise}</td>
+   <td>{props.record.reps}</td>
+   <td>{props.record.weight}</td>
+   <td>{props.record.date}</td>
    <td>
      <Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link> |
      <button className="btn btn-link"
@@ -17,7 +18,7 @@ const Record = (props) => (
    </td>
  </tr>
 );
-export default function RecordList() {
+export default function RecordList({user}) {
  const [records, setRecords] = useState([]);
   // This method fetches the records from the database.
  useEffect(() => {
@@ -57,14 +58,17 @@ export default function RecordList() {
   // This following section will display the table with the records of individuals.
  return (
    <div>
-     <h3>Record List</h3>
+    <h2>Welcome {user}!</h2>
+     <h3>Exercise List</h3>
+     <button>Create</button>
      <table className="table table-striped" style={{ marginTop: 20 }}>
        <thead>
          <tr>
-           <th>Name</th>
-           <th>Position</th>
-           <th>Level</th>
-           <th>Action</th>
+           <th>Exercise</th>
+           <th>Reps</th>
+           <th>Weight</th>
+           <th>Date</th>
+           <th>Options</th>
          </tr>
        </thead>
        <tbody>{recordList()}</tbody>
