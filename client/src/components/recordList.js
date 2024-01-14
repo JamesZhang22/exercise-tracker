@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 const Record = (props) => (
  <tr>
    <td>{props.record.exercise}</td>
@@ -14,12 +15,18 @@ const Record = (props) => (
        }}
      >
        Delete
-     </button>
+     </button> | 
+     <a href={props.record.video}>
+      <button className="btn btn-link">
+       Video
+      </button>
+     </a>
    </td>
  </tr>
 );
 export default function RecordList({user}) {
  const [records, setRecords] = useState([]);
+ 
   // This method fetches the records from the database.
  useEffect(() => {
    async function getRecords() {

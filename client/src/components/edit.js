@@ -6,6 +6,7 @@ import { useParams, useNavigate } from "react-router";
    reps: "",
    weight: "",
    date: "",
+   video: "",
    records: [],
  });
  const params = useParams();

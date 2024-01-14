@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { fetchData, youtubeOptions } from '../utils/fetchData';
+
 export default function Create({user}) {
  const [form, setForm] = useState({
    exercise: "",
    reps: "",
    weight: "",
    date: "",
+   video: "",
  });
  const navigate = useNavigate();
   // These methods will update the state properties.
+  const fetchVideo = async(prev) => {
+    const youtubeSearchUrl = 'https://youtube-search-and-download.p.rapidapi.com/search';
+    const exerciseVideosData = await fetchData(`${youtubeSearchUrl}?query=${prev.exercise} exercise`, youtubeOptions);
+    return exerciseVideosData.contents;
+  }
  function updateForm(value) {
    return setForm((prev) => {
      return { ...prev, ...value };
@@ -18,6 +26,8 @@ export default function Create({user}) {
  async function onSubmit(e) {
    e.preventDefault();
     // When a post request is sent to the create url, we'll add a new record to the database.
+   form.video = await fetchVideo(form);
+   console.log(form);
    const newPerson = { ...form };
    newPerson.user = user;
     await fetch("http://localhost:5000/record/add", {
